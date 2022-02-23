@@ -14,6 +14,7 @@ jobs:
       - run: docker run -e CI=true ruinano/react-test npm test
 
   build:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
