@@ -17,11 +17,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - run: docker build -t ruinano/multi-client ./client
       - run: docker build -t ruinano/multi-nginx ./nginx
       - run: docker build -t ruinano/multi-server ./server
       - run: docker build -t ruinano/multi-worker ./worker
+
+  deliver:
+    needs: [test, build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - run: docker push ruinano/multi-client
       - run: docker push ruinano/multi-nginx 
       - run: docker push ruinano/multi-server
