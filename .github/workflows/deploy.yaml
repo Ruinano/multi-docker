@@ -20,10 +20,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Build prod image
+      - name: Build clinet prod image
         run: docker build -t ruinano/multi-client ./client
+      - name: Build nginx prod image
         run: docker build -t ruinano/multi-nginx ./nginx
+      - name: Build server prod image
         run: docker build -t ruinano/multi-server ./server
+      - name: Build worker prod image
         run: docker build -t ruinano/multi-worker ./worker
       - name: Push to Dockerhub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
