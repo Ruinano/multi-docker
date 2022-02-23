@@ -6,11 +6,14 @@ on:
 
 jobs:
   test:
+    name: Test react client
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: docker build -t ruinano/react-test -f ./client/Dockerfile.dev ./client
-      - run: docker run -e CI=true ruinano/react-test npm test
+      - name: Build test image
+        run: docker build -t ruinano/react-test -f ./client/Dockerfile.dev ./client
+      - name: Run test
+        run: docker run -e CI=true ruinano/react-test npm test
 
   build:
     needs: test
