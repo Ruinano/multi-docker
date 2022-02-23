@@ -23,5 +23,7 @@ jobs:
       - run: docker build -t ruinano/multi-nginx ./nginx
       - run: docker build -t ruinano/multi-server ./server
       - run: docker build -t ruinano/multi-worker ./worker
-
-      
+      - run: docker push ruinano/multi-client
+      - run: docker push ruinano/multi-nginx 
+      - run: docker push ruinano/multi-server
+      - run: docker push ruinano/multi-worker
