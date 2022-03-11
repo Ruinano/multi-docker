@@ -38,13 +38,14 @@ jobs:
         run: docker push ruinano/multi-server
       - name: Push worker image to Dockerhub
         run: docker push ruinano/multi-worker
-      - name: Generate deployment package
-        run: zip -r deploy.zip . -x '*.git*'
 
-  deploy:
+  generate and deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Generate deployment package
+        uses: actions/checkout@v2
+        run: zip -r deploy.zip . -x '*.git*'
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v18
         with:
