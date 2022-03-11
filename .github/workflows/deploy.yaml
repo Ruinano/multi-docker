@@ -38,17 +38,11 @@ jobs:
         run: docker push ruinano/multi-server
       - name: Push worker image to Dockerhub
         run: docker push ruinano/multi-worker
-
-  generate:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
       - name: Generate deployment package
         run: zip -r deploy.zip . -x '*.git*'
 
   deploy:
-    needs: generate
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to EB
